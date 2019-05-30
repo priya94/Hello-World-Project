@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    service: db
+  name: db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: db
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DB_HOST
+          value: '%'
+        - name: MYSQL_PASSWORD
+          value: developer
+        - name: MYSQL_ROOT_PASSWORD
+          value: letmein
+        - name: MYSQL_USER
+          value: developer
+        image: priyatp/mysql:develop
+        name: db
+        ports:
+        - containerPort: 3306
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: db-claim0
+      restartPolicy: Always
+      volumes:
+      - name: db-claim0
+        persistentVolumeClaim:
+          claimName: db-claim0
+status: {}

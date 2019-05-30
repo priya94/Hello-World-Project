@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -eu
+
+exec /usr/sbin/php-fpm7.2 -y /etc/php/7.2/fpm/php-fpm.conf 2>&1
